@@ -3,46 +3,19 @@ title: "Support Design"
 description: "Design pressure vessel supports with full geometry, material, load, and code parameters"
 ---
 
-The Support Design page (`/soporte-diseno`) is the primary engineering workspace in PSI. It brings together vessel geometry, environmental loads, and code-specific parameters to produce a complete support design that can be printed or exported as a formal report.
+The Support Design page (`/soporte-diseno`) is the primary engineering workspace in PSI for configuring support calculations. The page is currently in active development — the route renders a metrics dashboard while the full PSI design form components are built and integrated.
 
-## Page Layout
+<Note>
+  The `/soporte-diseno` route is under active development. The PSI-specific design form components — including `GeometryCard`, `WindCard`, `SeismicCard`, and the five support type panels — exist in the codebase and are being wired into this route. The current page serves as a placeholder dashboard while integration is finalized.
+</Note>
 
-The page uses a three-column responsive grid:
+## PSI Support Design Components
 
-- **Left column** — three stacked input cards: Geometry & Weight, Wind, and Seismic
-- **Center column** — support type selector and type-specific configuration
-- **Right column** — live Summary Report panel with print/export button
+The following components are built and available in the source codebase under `src/pages/Pressure/components/` and `src/pages/Pressure/supports/`. They will form the complete design form once integrated:
 
-As inputs are changed, the summary updates in real time so engineers can immediately review all parameters before generating the report.
+### Geometry & Weight (`GeometryCard`)
 
-## Design Workflow
-
-<Steps>
-  <Step title="Select Design Code">
-    Choose between **ASME/ASCE** (international) and **COVENIN** (Venezuelan national standard). The seismic inputs panel changes completely depending on this selection.
-  </Step>
-  <Step title="Enter Vessel Geometry">
-    Fill in the Geometry & Weight card with the vessel's outer diameter, length or height, wall thickness, insulation thickness, liquid level percentage, and fluid specific gravity. These values determine the total operating weight and projected area used in wind and seismic load calculations.
-  </Step>
-  <Step title="Configure Wind Loads">
-    In the Wind card, select the wind zone (Zone 1, 2, or 3), optionally override the wind speed or pressure value, choose an exposure category (B, C, or D), and enter an importance factor.
-  </Step>
-  <Step title="Configure Seismic Loads">
-    In the Seismic card, enter parameters appropriate for the selected design code:
-    - **ASME/ASCE** — site class (A–F), Ss (short-period spectral acceleration), S1 (1-second spectral acceleration), and response factor R
-    - **COVENIN** — city name, Venezuelan state, soil type (S1–S4), importance group (A, B1, B2), and response factor R
-  </Step>
-  <Step title="Select Support Type">
-    Choose the support configuration in the center column. Each type exposes its own geometry and material inputs.
-  </Step>
-  <Step title="Review and Export">
-    The Summary Report on the right shows all inputs consolidated — general information, geometry, wind & seismic data, and support configuration. Click **Imprimir / Exportar** to open a print-ready view in a new window.
-  </Step>
-</Steps>
-
-## Geometry & Weight Card
-
-The `GeometryCard` component collects the following inputs. Labels adapt to the active unit system (SI or US Customary).
+Collects vessel dimensional and fluid properties. Labels adapt to the active unit system (SI or US Customary).
 
 | Field | SI Unit | US Unit | Notes |
 |---|---|---|---|
@@ -56,67 +29,68 @@ The `GeometryCard` component collects the following inputs. Labels adapt to the 
 
 For **Columna vertical** vessels the length field label changes to "Altura". For **Esférico** vessels the length/height field is hidden entirely.
 
-## Wind Card
+### Wind Loads (`WindCard`)
 
-The `WindCard` collects wind loading parameters:
+Collects wind loading parameters for the site:
 
 - **Zona de viento** — automatic zone selection: Zone 1, Zone 2, or Zone 3
 - **Valor de viento (opcional)** — manual override in m/s or kPa (SI) / mph or psf (US)
 - **Categoría de exposición** — terrain roughness: B (urban/suburban), C (open terrain), D (flat/open water)
 - **Factor de importancia** — applied to base wind pressure per the selected code
 
-## Seismic Card
+### Seismic Loads (`SeismicCard`)
 
-The `SeismicCard` displays different fields based on the active design code.
+Displays different fields based on the active design code.
 
 **ASME/ASCE mode:**
-
 - Site class: A, B, C, D, E, or F
 - Ss — mapped spectral acceleration at short periods
 - S1 — mapped spectral acceleration at 1-second period
-- Factor de respuesta R — response modification coefficient, auto-populated based on support type
+- Factor de respuesta R — response modification coefficient
 
 **COVENIN mode:**
-
 - Ciudad — city name for reference
-- Estado — Venezuelan state (full list from Amazonas to Zulia, plus Distrito Capital)
+- Estado — Venezuelan state (Amazonas through Dependencias Federales)
 - Tipo de suelo — S1 (rock), S2, S3, or S4 (soft)
 - Grupo de importancia — A (critical), B1, or B2
 - Factor de respuesta R — response modification coefficient
 
-## Support Types
+### Support Type Panels
 
-The center column lets you select from five support configurations:
+Five support configurations are available, each with its own parameter form. See the [Support Types](/supports/saddle) section for full parameter documentation.
 
 <CardGroup cols={2}>
-  <Card title="Saddle" icon="columns-3">
-    Horizontal vessel supports. Two saddles bear the vessel weight at defined locations along the shell length. Inputs include saddle height and longitudinal location.
+  <Card title="Saddle" icon="columns-3" href="/supports/saddle">
+    Horizontal vessel supports. Location, contact angle, web, base plate, ribs, friction.
   </Card>
-  <Card title="Skirt" icon="circle-dashed">
-    Cylindrical or conical skirt welded to the bottom head of a vertical column. Standard choice for tall towers.
+  <Card title="Skirt" icon="circle-dashed" href="/supports/skirt">
+    Cylindrical or conical skirt for vertical columns. Anchor bolt pattern and optional chairs.
   </Card>
-  <Card title="Legs" icon="table-columns">
-    Discrete structural legs attached to the vessel shell or bottom head. Braced leg configurations can use Angle (L), Beam (W/I), Pipe (Sch 40/80), or Square Tube (HSS) profiles.
+  <Card title="Legs" icon="table-columns" href="/supports/legs">
+    Discrete structural legs (unbraced or braced). Profiles, spacing, bolt circle.
   </Card>
-  <Card title="Lug" icon="paperclip">
-    Welded plate lugs that sit on a structural frame. Common for smaller vertical vessels.
+  <Card title="Lug" icon="paperclip" href="/supports/lug">
+    Welded plate lugs with optional gusset and pad plate sub-configurations.
   </Card>
-  <Card title="Ring Support" icon="circle">
-    A full circumferential ring welded to the vessel shell and supported on a frame or foundation. Used when axial loads must be distributed uniformly.
+  <Card title="Ring Support" icon="circle" href="/supports/ring-support">
+    Full circumferential ring girder with web, flange, gussets, and bolt circle.
+  </Card>
+  <Card title="Anchoring" icon="anchor" href="/supports/anchoring">
+    Anchor bolt design — bolt quantity, material, embedment, concrete strength, anchor type.
   </Card>
 </CardGroup>
 
-## Summary Report Panel
+### Summary Report (`SummaryReport`)
 
-The right-hand `SummaryReport` component assembles all form values into four printable sections:
+Once the design form is fully integrated, the Summary Report component will consolidate all inputs into a printable document with four sections:
 
 1. **Resumen — Información general** — project name, working fluid, design code, design pressure, design temperature
 2. **Geometry & Weight** — outer diameter, length/height, material, wall thickness
 3. **Wind & Seismic** — wind zone and value, seismic site class or COVENIN location data
-4. **Support configuration** — support type and type-specific geometry summary
+4. **Support configuration** — support type and key geometry summary
 
-The **Imprimir / Exportar** button opens a new browser window with all current stylesheet rules embedded, ready for print or PDF export.
+The **Imprimir / Exportar** button will open a new browser window with all current stylesheet rules embedded, ready for print or PDF export. See [Engineering Reports](/reference/reports) for full details.
 
 <Tip>
-  All fields display a dash (`-`) in the summary when not yet filled in. Complete all cards before printing to ensure the report is fully populated.
+  The support-specific components (Saddle, Skirt, Legs, Lug, RingSupport, Anchoring) and all design parameter cards are fully coded at `src/pages/Pressure/supports/` and `src/pages/Pressure/components/`. Their parameter documentation is accurate and reflects the actual component implementations.
 </Tip>

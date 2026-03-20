@@ -56,10 +56,12 @@ Material selection affects vessel self-weight, which feeds directly into support
 
 ## How Vessel Data Flows
 
-Once vessel parameters are entered they are used throughout the application:
+Vessel parameters are the input foundation for the entire PSI calculation chain. The geometry and weight values feed downstream into each of the pressure element and structural element modules:
 
-1. **Support Design** (`/soporte-diseno`) — vessel geometry and weight are pre-populated in the Geometry & Weight card.
-2. **Support Analysis** (`/soporte-analisis`) — operating weight and dimensions drive the analytics metrics and charts.
+1. **Support Design** (`/soporte-diseno`) — vessel geometry and weight drive the Geometry & Weight card inputs.
+2. **Support Analysis** (`/soporte-analisis`) — operating weight and dimensions inform the analytics metrics and charts.
 3. **Weld Design** (`/soldadura-diseno`) — vessel outer diameter and wall thickness inform attachment weld sizing.
 
-The vessel definition is therefore the single source of truth for the entire calculation chain.
+<Note>
+  The Vessels page (`/recipientes-analisis`) where vessel definitions will be managed is currently under construction. In the interim, vessel geometry is entered directly in the support design input components (GeometryCard).
+</Note>

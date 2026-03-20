@@ -1,69 +1,69 @@
 ---
 title: "Support Analysis"
-description: "View analytics, metrics, and charts for pressure vessel support performance"
+description: "View analytics and metrics for pressure vessel support performance"
 ---
 
-The Support Analysis page (`/soporte-analisis`) provides the results and analytics dashboard for the pressure vessel support system. After configuring design parameters in the [Support Design](/features/support-design) page, engineers use this view to review performance metrics, visualize load distributions, and examine activity data.
+The Support Analysis page (`/soporte-analisis`) provides the results and analytics dashboard for pressure vessel support design. The page uses a responsive grid layout built on a set of analytics dashboard components drawn from the application's UI library.
 
-## Dashboard Overview
+<Note>
+  The analytics dashboard is the results view for support design work. Navigate to the support-specific modules under **Elementos a presión** in the sidebar to configure design parameters before reviewing results here.
+</Note>
 
-The page renders a 12-column responsive grid that organizes analytics widgets into logical groups. All widgets update based on the current design state.
+## Dashboard Layout
+
+The page renders a 12-column responsive grid with the following widget arrangement:
+
+| Region | Component | Width |
+|---|---|---|
+| Top | `AnalyticsMetrics` | Full width (12 cols) |
+| Second row | `AnalyticsBarChart` | Full width (12 cols) |
+| Middle left | `TopChannel` + `TopPages` | 7 cols (xl) |
+| Middle right | `ActiveUsersChart` | 5 cols (xl) |
+| Lower left | `AcquisitionChannelChart` | 7 cols (xl) |
+| Lower right | `SessionChart` | 5 cols (xl) |
+| Bottom left | `DemographicCard` | 5 cols (xl) |
+| Bottom right | `RecentOrderAnalytics` | 7 cols (xl) |
 
 ### Metrics Row
 
-At the top of the page, the **AnalyticsMetrics** component displays key performance indicators as a set of summary cards. These give an at-a-glance view of the most critical calculated values — such as total operating weight, base shear, overturning moment, and utilization ratios for the selected support type.
+At the top of the page, the `AnalyticsMetrics` component displays a row of key performance indicator cards — summary figures derived from the current design state.
 
 ### Bar Chart
 
-The **AnalyticsBarChart** component renders a full-width bar chart beneath the metrics row. This chart compares load contributions or calculated capacities across multiple categories, making it easy to identify which load case or component governs the design.
+The `AnalyticsBarChart` component renders a full-width bar chart below the metrics row, comparing values across multiple categories.
 
 ### Channel and Pages Breakdown
 
-The center section contains two side-by-side widgets:
-
-- **TopChannel** — ranks load sources or calculation paths by their relative contribution to the governing result
-- **TopPages** — lists the most-used calculation routes or parameter combinations in the current session
+Two side-by-side widgets in the center section:
+- `TopChannel` — breakdown of contributions or categories by relative weight
+- `TopPages` — list of most-active calculation routes or sessions
 
 ### Active Users Chart
 
-The **ActiveUsersChart** widget occupies the right side of the center row. In the context of support analysis, this widget visualizes time-series activity — for example, the history of design iterations or parameter changes during the current session.
+The `ActiveUsersChart` widget on the right side of the center row presents time-series activity data.
 
 ### Acquisition and Session Charts
 
-The lower section of the dashboard includes two additional time-series visualizations:
-
-- **AcquisitionChannelChart** — shows how different load input channels (dead load, wind, seismic, thermal) contribute to the total demand over a parameter sweep
-- **SessionChart** — tracks the progression of analysis results across multiple calculation runs
+The lower section contains two additional visualizations:
+- `AcquisitionChannelChart` — distribution of activity across input channels
+- `SessionChart` — progression of results across calculation runs
 
 ### Demographic Card
 
-The **DemographicCard** widget provides a geographic or categorical breakdown. In the engineering context this may represent the distribution of load cases by code zone, site class, or vessel type across a project portfolio.
+The `DemographicCard` widget provides a geographic or categorical breakdown relevant to the current analysis context.
 
 ### Recent Activity Table
 
-At the bottom of the page, the **RecentOrderAnalytics** table lists recent design actions or calculation events in a tabular format with timestamps and status indicators. This provides an audit trail of parameter changes and result updates.
-
-## Layout Summary
-
-| Region | Widget | Width |
-|---|---|---|
-| Top | AnalyticsMetrics | Full width (12 cols) |
-| Second row | AnalyticsBarChart | Full width (12 cols) |
-| Middle left | TopChannel + TopPages | 7 cols (xl) |
-| Middle right | ActiveUsersChart | 5 cols (xl) |
-| Lower left | AcquisitionChannelChart | 7 cols (xl) |
-| Lower right | SessionChart | 5 cols (xl) |
-| Bottom left | DemographicCard | 5 cols (xl) |
-| Bottom right | RecentOrderAnalytics | 7 cols (xl) |
+At the bottom, the `RecentOrderAnalytics` table lists recent design events in a tabular format with timestamps and status indicators, providing an audit trail of parameter changes.
 
 ## Workflow Integration
 
-The Support Analysis page is the second step in the pressure vessel support workflow:
+The Support Analysis page is the results view in the pressure vessel support workflow:
 
-1. Define vessel and support parameters on the [Support Design](/features/support-design) page
-2. Review computed results and visual analytics here on the Support Analysis page
+1. Configure vessel geometry, loads, and support parameters — available via **Elementos a presión → Diseño de soportes** in the sidebar
+2. Review computed results and analytics here on the Support Analysis page (`/soporte-analisis`)
 3. Export the formal calculation report using the print button on the design page
 
-<Note>
-  The analytics dashboard reflects the parameters configured in the Support Design page. Navigate to `/soporte-diseno` first to enter your vessel geometry, loads, and support type before reviewing results here.
-</Note>
+<Tip>
+  The [Support Design](/features/support-design) page documents all available input components (GeometryCard, WindCard, SeismicCard, and the five support type panels) that feed results into this analysis view.
+</Tip>

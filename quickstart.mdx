@@ -3,7 +3,11 @@ title: "Quickstart"
 description: "Get from account creation to your first design calculation in under 5 minutes."
 ---
 
-This guide walks you through creating an account, entering a complete support design, and reviewing the analysis results.
+This guide walks you through creating an account, navigating the PSI dashboard, and using the support design components.
+
+<Note>
+  PSI is under active development. The support design input components (geometry, wind, seismic, and support type forms) are built in the source and are being integrated into the `/soporte-diseno` route. The step-by-step workflow below reflects the design parameters these components accept. Steps 4–9 describe the inputs you will configure once the full design form is available at that route.
+</Note>
 
 <Steps>
   <Step title="Create an account">
@@ -13,11 +17,11 @@ This guide walks you through creating an account, entering a complete support de
   </Step>
 
   <Step title="Sign in">
-    Go to `/login` and enter your email and password. After successful authentication you will land on the home page (`/inicio`).
+    Go to `/login` and enter your email and password, or use the **Log in con Google** or **Log in con X** buttons for social authentication. After successful authentication you will land on the home page (`/inicio`).
   </Step>
 
   <Step title="Open Support Design">
-    In the left sidebar, expand **Elementos a presión** and click **Diseño de soportes**. This opens the support design input form at `/soporte-diseno`.
+    In the left sidebar, expand **Elementos a presión** and click **Diseño de soportes**. This navigates to `/soporte-diseno`, the support design workspace. The page is actively being developed — the support design components (geometry, wind, seismic, support type panels) exist in the application and are being integrated into this route.
   </Step>
 
   <Step title="Select vessel type">
@@ -68,7 +72,7 @@ This guide walks you through creating an account, entering a complete support de
 
     **COVENIN** (for Venezuelan projects):
     - **Ciudad** — city name
-    - **Estado** — select from all 24 Venezuelan states and Distrito Capital
+    - **Estado** — select from all Venezuelan states including Amazonas, Anzoátegui, Aragua, Bolívar, Carabobo, Distrito Capital, Dependencias Federales, and all others
     - **Tipo de suelo** — S1 (rock/firm), S2, S3, or S4 (soft/deep alluvium)
     - **Grupo de importancia** — A (critical/essential), B1, or B2
     - **Factor de respuesta R** — response modification factor
