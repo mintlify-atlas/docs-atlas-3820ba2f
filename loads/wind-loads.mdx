@@ -1,0 +1,89 @@
+---
+title: "Wind Loads"
+description: "Configure wind load parameters for pressure vessel support design per ASCE and COVENIN standards"
+---
+
+Wind loads are lateral forces applied to a pressure vessel and its support structure due to wind pressure acting on the exposed surface area. PSI computes wind-induced base shear and overturning moment using the wind zone, exposure category, and importance factor you provide.
+
+<Info>
+  Wind load inputs appear in the **Viento** card on the main design form. They apply to all vessel types — vertical columns, horizontal vessels, and spherical vessels — though the effective projected area differs by geometry.
+</Info>
+
+## Wind Zones
+
+The **Wind Zone (auto)** selector classifies the site into one of three hazard levels. If you do not enter a direct wind value, PSI uses the selected zone to look up a reference wind speed and compute design pressure internally.
+
+| Zone | Hazard Level | Typical Use Case |
+|------|-------------|------------------|
+| Zone 1 | Low wind exposure | Inland sites, sheltered areas, low-speed regions |
+| Zone 2 | Moderate wind exposure | General onshore industrial sites |
+| Zone 3 | High wind exposure | Coastal areas, elevated sites, high-speed wind corridors |
+
+Zones align with the wind hazard map regions referenced by ASCE 7 and COVENIN 2003. When a project location corresponds to a known zone, select it here to let PSI handle the underlying speed-to-pressure conversion automatically.
+
+<Tip>
+  If you have a site-specific wind study or a local building permit requirement with a defined wind speed or pressure, enter that value directly in the **Wind Value** field and the zone selection becomes secondary context.
+</Tip>
+
+## Parameters
+
+<ParamField path="windAuto" type="select" required>
+  **Wind Zone (auto)**
+
+  Selects the nominal wind hazard zone for the site. Valid options are **Zone 1**, **Zone 2**, and **Zone 3**, corresponding to low, medium, and high wind exposure respectively. PSI uses this zone to derive a reference wind speed when no explicit wind value is provided.
+</ParamField>
+
+<ParamField path="windValue" type="number">
+  **Wind Value (optional)**
+
+  A direct wind speed or wind pressure override for the site. When provided, this value takes precedence over the zone-based lookup.
+
+  - **SI units**: enter in **m/s** (wind speed) or **kPa** (design wind pressure)
+  - **US units**: enter in **mph** (wind speed) or **psf** (design wind pressure)
+
+  Leave this field empty to rely on the automatic zone-based calculation.
+</ParamField>
+
+<ParamField path="exposureCategory" type="select" required>
+  **Exposure Category**
+
+  Describes the surface roughness of the terrain surrounding the site, which affects the wind velocity profile with height. Select **B**, **C**, or **D** per ASCE 7 Section 26.7.
+</ParamField>
+
+<ParamField path="windImportanceFactor" type="number" required>
+  **Importance Factor**
+
+  A multiplier applied to the design wind pressure to account for the consequence of structural failure. Higher values increase the design load and result in more conservative support sizing. Typical values range from **0.87** to **1.15** depending on the risk category of the facility.
+</ParamField>
+
+## Exposure Categories
+
+The exposure category governs how quickly wind speed increases with height above the ground. Select the category that best describes the upwind terrain for a distance of at least 1500 ft (457 m) in any direction.
+
+| Category | Terrain Description | Typical Examples |
+|----------|--------------------|-----------------|
+| **B** | Urban and suburban areas, wooded terrain, or closely spaced obstructions | Residential neighborhoods, industrial parks with dense structures |
+| **C** | Open terrain with scattered obstructions generally less than 30 ft (9 m) high | Flat open country, grasslands, some coastal areas |
+| **D** | Flat, unobstructed areas and water surfaces | Coastlines, lakefronts, tidal flats, open water within 600 ft (183 m) |
+
+<Info>
+  Exposure Category D produces the highest wind pressures for a given speed because there is minimal terrain roughness to slow the wind near the ground. Coastal and offshore facilities typically use Category D.
+</Info>
+
+## Auto Zone vs. Manual Wind Value
+
+PSI supports two workflows for wind load definition:
+
+**Auto Zone workflow** — Select a Wind Zone (1, 2, or 3) and let PSI derive the reference wind speed. This is appropriate when:
+- The project location maps cleanly to a hazard zone
+- No project-specific wind study has been performed
+- You are doing preliminary sizing or feasibility estimates
+
+**Manual Value workflow** — Enter a specific wind speed (m/s or mph) or design pressure (kPa or psf) directly. This is appropriate when:
+- A licensed meteorological study defines the site wind speed
+- Local code or permit authority specifies a required design wind
+- The site is in a complex topographic area (valley, ridge, escarpment) requiring a correction factor
+
+<Tip>
+  When entering a pressure directly in kPa or psf, ensure the value already incorporates the velocity pressure coefficient (q) and any topographic factor. PSI will apply the exposure category and importance factor on top of the value you enter.
+</Tip>

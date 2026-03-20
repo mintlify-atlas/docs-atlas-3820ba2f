@@ -1,0 +1,64 @@
+---
+title: "Unit Systems"
+description: "Switching between SI (metric) and US customary unit systems in PSI"
+---
+
+PSI supports two unit systems: **SI (metric)** and **US customary**. The selected unit system applies globally across all input forms — geometry, loads, pressures, temperatures, and report output all use the same unit system simultaneously.
+
+<Tip>
+  Switch the unit system **before** entering any values. Changing the unit system after filling in form fields does not automatically convert existing values, which can lead to incorrect calculations.
+</Tip>
+
+## SI vs US Units
+
+<Tabs>
+  <Tab title="SI (Metric)">
+    The SI unit system uses metric units throughout PSI:
+
+    | Quantity | Unit | Symbol |
+    |---|---|---|
+    | Length (diameter, height, thickness) | Millimeters | mm |
+    | Pressure | Megapascals | MPa |
+    | Temperature | Degrees Celsius | °C |
+    | Wind speed | Meters per second or kilopascals | m/s or kPa |
+
+    SI is the default unit system and is consistent with international engineering standards including the metric editions of ASME and ISO codes.
+  </Tab>
+  <Tab title="US Customary">
+    The US customary unit system uses imperial units throughout PSI:
+
+    | Quantity | Unit | Symbol |
+    |---|---|---|
+    | Length (diameter, height, thickness) | Inches | in |
+    | Pressure | Pounds per square inch | psi |
+    | Temperature | Degrees Fahrenheit | °F |
+    | Wind speed | Miles per hour or pounds per square foot | mph or psf |
+
+    US customary units align with the US editions of ASME codes and are commonly used in North American engineering practice.
+  </Tab>
+</Tabs>
+
+## Unit Conversion Reference
+
+Use this table when converting values between unit systems:
+
+| Quantity | SI | US Customary | Conversion factor |
+|---|---|---|---|
+| Length | 1 mm | 0.03937 in | 1 in = 25.4 mm |
+| Pressure | 1 MPa | 145.038 psi | 1 psi = 0.006895 MPa |
+| Temperature | °C | °F | °F = (°C × 9/5) + 32 |
+| Temperature | 0 °C | 32 °F | — |
+| Temperature | 100 °C | 212 °F | — |
+
+## How Unit Labels Work in PSI
+
+PSI displays the active unit label directly on each input field so you always know which unit is expected. For example:
+
+- When SI is active: **Diámetro exterior (mm)**, **Espesor de pared (mm)**
+- When US is active: **Diámetro exterior (in)**, **Espesor de pared (in)**
+
+The same labeling applies to pressure and temperature fields in the design parameters form. In the Summary Report, values are printed with their unit appended — for example, `1.5 MPa` or `250 psi` — based on the unit system that was active when the report was generated.
+
+<Note>
+  The unit system selection is stored at the session level. If you reload the page, verify that the correct unit system is still selected before resuming data entry.
+</Note>

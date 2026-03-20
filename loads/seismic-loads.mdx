@@ -1,0 +1,150 @@
+---
+title: "Seismic Loads"
+description: "Configure seismic parameters for pressure vessel support design using ASME/ASCE or COVENIN codes"
+---
+
+Seismic loads are inertial forces induced in a pressure vessel and its support structure by ground motion during an earthquake. PSI calculates equivalent static seismic base shear using either the ASME/ASCE methodology (US and international projects) or the COVENIN methodology (Venezuelan projects).
+
+The active seismic input mode is determined by the **Design Code** selection at the top of the form. Switching codes changes the seismic card fields entirely.
+
+<Note>
+  Use **ASME/ASCE** when the project is governed by US codes, international standards, or when USGS spectral hazard maps are available for the site. Use **COVENIN** when the project is located in Venezuela and must comply with local regulatory requirements, which use state-level seismic hazard maps and a distinct soil classification system.
+</Note>
+
+<Tabs>
+  <Tab title="ASME / ASCE">
+    The ASME/ASCE seismic method follows ASCE 7 Chapter 11–15 for equivalent lateral force (ELF) analysis. You need three site-characterization inputs and the structural response modification factor.
+
+    ### Site Class
+
+    The site class describes the mechanical properties of the soil or rock at the site to a depth of 30 m (100 ft). It is used to determine site amplification factors (Fa and Fv) that scale the mapped spectral accelerations to design values.
+
+    | Class | Description | Shear Wave Velocity vs (m/s) |
+    |-------|-------------|-----------------------------|
+    | **A** | Hard rock | > 1500 |
+    | **B** | Rock | 760 – 1500 |
+    | **C** | Very dense soil and soft rock | 360 – 760 |
+    | **D** | Stiff soil | 180 – 360 |
+    | **E** | Soft clay soil | < 180 |
+    | **F** | Special soils requiring site-specific evaluation | — |
+
+    <Info>
+      Site Class D is the default assumption under ASCE 7 when no geotechnical investigation has been performed. Class F always requires a site-specific ground motion study and cannot use the standard amplification factors.
+    </Info>
+
+    ### Spectral Accelerations
+
+    <ParamField path="seismicSs" type="number" required>
+      **Ss — Mapped Short-Period Spectral Acceleration (g)**
+
+      The mapped maximum considered earthquake (MCE) spectral response acceleration at short periods (0.2 s), expressed as a fraction of gravitational acceleration (g). Obtain this value from USGS Unified Hazard Tool or ASCE 7 Figures 22-1 through 22-6 for the project coordinates.
+
+      Typical range: 0.0 g (low seismicity) to 3.0 g or higher (near active faults).
+    </ParamField>
+
+    <ParamField path="seismicS1" type="number" required>
+      **S1 — Mapped 1-Second Period Spectral Acceleration (g)**
+
+      The mapped MCE spectral response acceleration at a 1-second period, expressed as a fraction of g. Also obtained from USGS or ASCE 7 maps. S1 characterizes the long-period content of the ground motion, which is particularly important for tall vertical vessels and skirt-supported columns.
+
+      Typical range: 0.0 g to 1.5 g or higher in high-seismicity zones.
+    </ParamField>
+
+    ### Response Modification Factor (R)
+
+    <ParamField path="seismicR" type="number" required>
+      **R — Response Modification Coefficient**
+
+      The R factor accounts for the ductility, overstrength, and energy dissipation capacity of the support structure. Higher R values reduce the seismic design force, reflecting the system's ability to deform inelastically without collapse.
+
+      R values per ASCE 7 Table 15.4-2 depend on the support type:
+
+      | Support Type | Typical R Range |
+      |---|---|
+      | Skirt support (steel) | 2.0 – 3.0 |
+      | Leg support (braced) | 2.5 – 3.5 |
+      | Saddle support | 2.0 – 3.0 |
+      | Lug support | 2.0 – 3.0 |
+
+      Enter the R value appropriate for the support configuration selected in the Support card.
+    </ParamField>
+  </Tab>
+
+  <Tab title="COVENIN">
+    The COVENIN seismic method follows the Venezuelan standard **COVENIN 1756** for earthquake-resistant building design, adapted for pressure vessel supports. Seismic hazard is defined by the state and municipality rather than by spectral map coordinates.
+
+    ### Location
+
+    <ParamField path="covenCity" type="string">
+      **City**
+
+      The municipality or city name within the selected state. Used to identify the local seismic hazard subzone within the state map. Text input — enter the city name as it appears in COVENIN 1756 Annex maps.
+    </ParamField>
+
+    <ParamField path="covenState" type="select" required>
+      **State**
+
+      The Venezuelan state where the facility is located. PSI uses the state to look up the applicable peak ground acceleration (PGA) from the COVENIN 1756 regional hazard map.
+
+      Available states:
+
+      Amazonas, Anzoátegui, Apure, Aragua, Barinas, Bolívar, Carabobo, Cojedes, Delta Amacuro, Falcón, Guárico, Lara, Mérida, Miranda, Monagas, Nueva Esparta, Portuguesa, Sucre, Táchira, Trujillo, La Guaira, Yaracuy, Zulia, Distrito Capital, Dependencias Federales.
+    </ParamField>
+
+    ### Soil Type
+
+    <ParamField path="covenSoilType" type="select" required>
+      **Soil Type**
+
+      COVENIN 1756 classifies soils into four types based on stiffness and composition. The soil type determines the site amplification spectrum shape applied to the base hazard.
+
+      | Type | Description | Characteristics |
+      |------|-------------|----------------|
+      | **S1** | Rock | Hard rock or very dense soil, vs > 700 m/s |
+      | **S2** | Intermediate soil | Dense or medium-dense granular soil, stiff clay |
+      | **S3** | Soft soil | Loose granular soil, medium-stiff clay |
+      | **S4** | Very soft soil | Soft or very soft clay, liquefiable soils |
+
+      S4 produces the highest amplification factors and is characteristic of alluvial plains and coastal lowlands found in states such as Zulia, Apure, and Delta Amacuro.
+    </ParamField>
+
+    ### Importance Group
+
+    <ParamField path="covenImportanceGroup" type="select" required>
+      **Importance Group**
+
+      COVENIN 1756 assigns structures to importance groups that scale the seismic design force based on the consequence of failure and the post-earthquake operational requirement of the facility.
+
+      | Group | Classification | Typical Application |
+      |-------|---------------|--------------------|
+      | **A** | Critical facilities | Facilities that must remain operational after an earthquake: hospitals, emergency response, hazardous material containment |
+      | **B1** | Important structures | Facilities with high occupancy or significant economic impact |
+      | **B2** | Normal structures | Standard industrial and commercial facilities |
+
+      Pressure vessels containing hazardous, toxic, or flammable fluids in high quantities are commonly assigned Group A or B1 depending on the regulatory classification of the process.
+    </ParamField>
+
+    ### Response Modification Factor (R)
+
+    <ParamField path="covenR" type="number" required>
+      **R — Factor de Respuesta**
+
+      The COVENIN response modification factor serves the same conceptual purpose as the ASCE 7 R factor — it reduces the elastic seismic demand based on the expected ductility of the structural system. However, the specific tabulated values are defined in COVENIN 1756 and differ from ASCE 7 values.
+
+      Do not substitute ASCE 7 R values when using the COVENIN code path. Always consult COVENIN 1756 Table 6 for the support system being used.
+    </ParamField>
+  </Tab>
+</Tabs>
+
+## How R Factor Varies by Support Type
+
+The response modification factor is not a material property — it is a property of the structural system and its lateral force-resisting mechanism. The same vessel on different support types will have different R values and therefore different seismic design forces.
+
+General guidance:
+- **Skirt supports** on vertical columns act as cantilever shell structures and typically use lower R values (less ductile behavior).
+- **Leg supports** with diagonal bracing have more defined load paths and may qualify for slightly higher R.
+- **Saddle and lug supports** on horizontal vessels generally follow the R value of the connected structure (grade slab, frame, or pipe rack).
+
+<Note>
+  PSI accepts the R factor as a user input rather than computing it automatically, because the appropriate value depends on structural details, connection type, and project-specific engineering judgment. Confirm the R value with the structural engineer of record before finalizing the calculation.
+</Note>

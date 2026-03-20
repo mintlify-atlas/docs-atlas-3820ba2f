@@ -1,0 +1,94 @@
+---
+title: "Leg Supports"
+description: "Configure structural leg supports for vertical, horizontal, and spherical pressure vessels. Choose between standard (unbraced) and braced leg configurations with a range of structural profiles."
+---
+
+Leg supports consist of individual structural members welded or bolted to the vessel shell or bottom head, extending to a foundation. They are widely used for small to medium vertical vessels, spherical storage tanks, and horizontal vessels where saddles are impractical. PSI supports two leg configurations: **standard (unbraced)** legs and **braced (arriostrada)** legs.
+
+<CardGroup cols={2}>
+  <Card title="Unbraced legs" icon="table-columns">
+    Simple structural sections (rectangular plate, angle, or tube) welded to the vessel. Suitable for short vessels or locations with low lateral loads.
+  </Card>
+  <Card title="Braced legs" icon="network-wired">
+    Structural sections interconnected with horizontal or diagonal bracing. Required when leg slenderness or lateral loading demands additional stiffness.
+  </Card>
+</CardGroup>
+
+## Parameters
+
+### Leg Configuration
+
+<ParamField path="legQuantity" type="select" required>
+  Number of legs supporting the vessel. Options: **3**, **4**, **6**, or **8**.
+</ParamField>
+
+<Warning>
+  For **horizontal vessels**, `legQuantity` is automatically locked to **4** and cannot be changed. The four legs are arranged in two pairs, with spacing defined by `legLongSpacing` and `legTransSpacing`.
+</Warning>
+
+<ParamField path="legProfile" type="select" required>
+  Cross-section shape of the structural leg member. Available options depend on the leg configuration:
+
+  - **Unbraced legs:** `Rectangular`, `Angle`, `Tube`
+  - **Braced legs:** `Angle (L)`, `Beam (W/I)`, `Pipe (Sch 40/80)`, `Square Tube (HSS)`
+</ParamField>
+
+<ParamField path="braceProfile" type="string">
+  Designation of the brace member cross-section, using standard structural notation (e.g., `L2x2x1/4` for a 2×2×¼ angle). Only shown for **braced leg** configurations. The brace profile is used to calculate the brace axial capacity and connection forces.
+</ParamField>
+
+<ParamField path="legLength" type="number" required>
+  Unsupported length of each leg from the vessel shell attachment to the base plate. For braced legs, this is the total leg height; bracing tier positions are determined by `bracingTier`.
+</ParamField>
+
+<ParamField path="bracingTier" type="select">
+  Number of horizontal bracing levels distributed along the leg height. Options: **1**, **2**, **3**, or **4**. More tiers reduce the effective buckling length of each leg segment. Only shown for **braced leg** configurations.
+</ParamField>
+
+### Base Plate (Vertical and Spherical Vessels)
+
+<Info>
+  Base plate parameters are shown only for **vertical (columna vertical)** and **spherical (Esférico)** vessel types. Horizontal vessel legs use longitudinal and transverse spacing instead.
+</Info>
+
+<ParamField path="legBasePlateWidth" type="number">
+  Width of the base plate at the bottom of each leg. The base plate must be sized to limit bearing pressure on the foundation grout.
+</ParamField>
+
+<ParamField path="legBasePlateLength" type="number">
+  Length of the base plate at the bottom of each leg. Together with `legBasePlateWidth`, defines the bearing area and bolt hole layout.
+</ParamField>
+
+### Spacing (Horizontal Vessels)
+
+<Info>
+  Spacing parameters are only shown when the vessel type is **Horizontal**.
+</Info>
+
+<ParamField path="legLongSpacing" type="number">
+  Centre-to-centre distance between the two leg pairs measured along the vessel axis (longitudinal direction). This dimension governs the bending moment in the vessel shell between supports.
+</ParamField>
+
+<ParamField path="legTransSpacing" type="number">
+  Centre-to-centre distance between the two legs within each pair, measured perpendicular to the vessel axis (transverse direction). This dimension affects the stability of each pair under lateral loads.
+</ParamField>
+
+### Bolt Circle (Non-Horizontal Vessels)
+
+<ParamField path="legBoltCircle" type="number">
+  Diameter of the bolt circle (Dbc) on which the anchor bolts at the leg base plates are positioned. Shown for all vessel types except horizontal.
+</ParamField>
+
+<Warning>
+  For **spherical vessels**, the bolt circle should be **larger than the sphere outside diameter** to ensure stable geometry. If `legBoltCircle` is entered smaller than the sphere OD and `underSlung` is not enabled, PSI displays a warning: *"Bolt circle (Dbc) is smaller than the sphere diameter. For spherical vessels the bolt circle is typically larger; under-slung legs are unstable and not recommended."*
+</Warning>
+
+### Under-Slung Configuration (Spherical Vessels)
+
+<ParamField path="underSlung" type="select">
+  Indicates whether the legs are attached below the sphere equator in an under-slung arrangement. Options: **Yes** or **No**. When enabled, the bolt circle warning for small Dbc values is suppressed, as the geometry is intentionally inverted.
+</ParamField>
+
+<Note>
+  Under-slung leg arrangements are geometrically possible but are generally considered unstable for free-standing spherical vessels. Consult your structural engineer before selecting this option.
+</Note>

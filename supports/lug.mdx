@@ -1,0 +1,89 @@
+---
+title: "Lug Supports"
+description: "Configure lug (bracket) supports for pressure vessels. Define lug geometry, eccentricity, hole diameter, optional stiffener gussets, and optional pad plates."
+---
+
+Lug supports (also called bracket supports) are discrete attachment plates welded to the vessel shell that transfer loads to a structural steel framework or building structure. They are common in vertical vessels supported off a platform, heat exchangers supported from structural beams, and agitated reactors where the vessel must be elevated.
+
+<CardGroup cols={2}>
+  <Card title="Discrete attachment" icon="link">
+    Lugs transfer concentrated loads at a small number of points, producing local shell stresses that must be evaluated per WRC 107/537 or finite element analysis.
+  </Card>
+  <Card title="Gusset and pad options" icon="layer-group">
+    Stiffener gussets and pad plates are optional sub-configurations that reduce local shell stresses and improve weld fatigue life.
+  </Card>
+</CardGroup>
+
+## Parameters
+
+### Lug Layout
+
+<ParamField path="lugQuantity" type="select" required>
+  Number of lug supports distributed symmetrically around the vessel circumference. Options: **2** or **4**. Two lugs are used for simple horizontal reactions; four lugs provide better load distribution and stability.
+</ParamField>
+
+<ParamField path="lugElevation" type="number" required>
+  Height of the lug centreline above the vessel datum (typically the vessel bottom tangent line). The elevation determines the moment arm for any horizontal force component acting at the lug.
+</ParamField>
+
+### Lug Dimensions
+
+<ParamField path="lugWidth" type="number" required>
+  Width of the lug plate measured along the vessel circumference. A wider lug distributes the load over a longer arc of the vessel shell, reducing peak local stresses.
+</ParamField>
+
+<ParamField path="lugLength" type="number" required>
+  Radial projection length of the lug plate measured from the vessel shell OD. The length sets the lever arm for bending at the lug-to-shell weld.
+</ParamField>
+
+<ParamField path="lugThickness" type="number" required>
+  Thickness of the lug plate. The lug plate is checked for bending, shear, and bearing at the bolt hole.
+</ParamField>
+
+<ParamField path="lugEccentricity" type="number" required>
+  Horizontal offset between the bolt hole centreline and the vessel shell outside surface. A non-zero eccentricity introduces an additional moment at the lug base weld, which increases local shell stresses.
+</ParamField>
+
+<Note>
+  Eccentricity is the most significant geometric parameter governing local shell stress at the lug. Where possible, minimise eccentricity by positioning the bolt hole as close to the vessel shell as structural clearance allows.
+</Note>
+
+<ParamField path="lugHoleDiameter" type="number" required>
+  Diameter of the bolt or pin hole in the lug plate. The hole diameter is used to calculate the net section area of the lug and the bearing stress on the hole wall.
+</ParamField>
+
+### Stiffener Gusset
+
+<ParamField path="lugGusset" type="select" required>
+  Whether a stiffener gusset plate is added to the lug. Options: **Yes** or **No**. Gussets are triangular or trapezoidal plates welded between the lug and the vessel shell to increase lug stiffness and reduce the bending moment transferred to the shell.
+</ParamField>
+
+When **Stiffener gusset** is set to **Yes**, the following parameter appears:
+
+<ParamField path="lugGussetThickness" type="number">
+  Thickness of the gusset plate. The gusset is typically the same thickness as or slightly thinner than the lug plate.
+</ParamField>
+
+### Pad Plate
+
+<ParamField path="lugPadPlate" type="select" required>
+  Whether a pad plate (reinforcing plate) is interposed between the lug and the vessel shell. Options: **Yes** or **No**. A pad plate spreads the lug attachment load over a larger shell area, reducing peak membrane stress and improving weld joint efficiency.
+</ParamField>
+
+When **Pad plate** is set to **Yes**, the following parameters appear:
+
+<ParamField path="lugPadWidth" type="number">
+  Width of the pad plate measured along the vessel circumference. Should extend beyond the lug width by at least one shell thickness on each side.
+</ParamField>
+
+<ParamField path="lugPadLength" type="number">
+  Length of the pad plate measured along the vessel axis. Should extend beyond the lug length by at least one shell thickness at each end.
+</ParamField>
+
+<ParamField path="lugPadThickness" type="number">
+  Thickness of the pad plate. The pad plate thickness affects the local reinforcement area and must be compatible with the shell material for welding.
+</ParamField>
+
+<Tip>
+  Adding a pad plate is the most cost-effective way to bring a marginal lug shell stress check into compliance. If stress results exceed allowables with no pad, enable **Pad plate** and increase `lugPadWidth` and `lugPadLength` before increasing vessel shell thickness.
+</Tip>

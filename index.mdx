@@ -1,97 +1,96 @@
 ---
-title: "Introduction"
-description: "Welcome to the new home for your documentation"
+title: "PSI — Pressure vessel Support Indicator"
+description: "Structural and pressure vessel engineering calculations in your browser. Design, analyze, and export engineering reports for pressure vessel supports, structural beams, and welds."
+mode: "custom"
 ---
 
-## Setting up
+<div style={{background: "#0a1618", minHeight: "480px", display: "flex", flexDirection: "column", alignItems: "center", justifyContent: "center", padding: "80px 24px 60px", textAlign: "center", borderRadius: "12px", marginBottom: "48px"}}>
+  <img src="https://media.brand.dev/d3d49045-68c2-4822-b33a-6aff1b1a7637.svg" alt="PSI Logo" style={{height: "56px", marginBottom: "32px"}} />
+  <h1 style={{color: "#cfebed", fontSize: "3rem", fontWeight: 700, margin: "0 0 16px", fontFamily: "Inter, sans-serif", lineHeight: 1.15}}>Pressure vessel Support Indicator</h1>
+  <p style={{color: "#70969a", fontSize: "1.2rem", maxWidth: "640px", margin: "0 0 40px", fontFamily: "Inter, sans-serif", lineHeight: 1.7}}>
+    Engineering-grade calculations for pressure vessel supports, structural beams, and weld design. Compliant with ASME, ASCE, and COVENIN codes. SI and US unit systems supported.
+  </p>
+  <div style={{display: "flex", gap: "16px", flexWrap: "wrap", justifyContent: "center"}}>
+    <a href="/introduction" style={{background: "#cfebed", color: "#0a1618", padding: "14px 32px", borderRadius: "9999px", fontWeight: 700, fontSize: "1rem", textDecoration: "none", fontFamily: "Inter, sans-serif"}}>Get Started</a>
+    <a href="/quickstart" style={{background: "transparent", color: "#cfebed", padding: "14px 32px", borderRadius: "9999px", fontWeight: 700, fontSize: "1rem", textDecoration: "none", border: "2px solid #70969a", fontFamily: "Inter, sans-serif"}}>Quickstart</a>
+  </div>
+</div>
 
-Get your documentation site up and running in minutes.
+## What is PSI?
 
-<Card
-  title="Start here"
-  icon="rocket"
-  href="/quickstart"
-  horizontal
->
-  Follow our three step quickstart guide.
-</Card>
+PSI is a web-based engineering platform for **pressure vessel support design and analysis**. It guides mechanical and structural engineers through the full lifecycle of a support calculation — from geometry input to printable reports — all within a modern browser dashboard.
 
-## Make it yours
-
-Design a docs site that looks great and empowers your users.
-
-<Columns cols={2}>
-  <Card
-    title="Edit locally"
-    icon="pen-to-square"
-    href="/development"
-  >
-    Edit your docs locally and preview them in real time.
+<CardGroup cols={2}>
+  <Card title="Support Design" icon="pencil-ruler" href="/features/support-design">
+    Configure saddle, skirt, leg, lug, and ring supports with geometry, material, and load inputs.
   </Card>
-  <Card
-    title="Customize your site"
-    icon="palette"
-    href="/essentials/settings"
-  >
-    Customize the design and colors of your site to match your brand.
+  <Card title="Support Analysis" icon="chart-line" href="/features/support-analysis">
+    Analyze support performance with metrics, charts, and code checks against ASME/ASCE and COVENIN.
   </Card>
-    <Card
-    title="Set up navigation"
-    icon="map"
-    href="/essentials/navigation"
-  >
-    Organize your docs to help users find what they need and succeed with your product.
+  <Card title="Structural Elements" icon="i-cursor" href="/features/structural-elements">
+    Beam and weld design/analysis modules with configurable profiles and bracing configurations.
   </Card>
-  <Card
-    title="API documentation"
-    icon="terminal"
-    href="/api-reference/introduction"
-  >
-    Auto-generate API documentation from OpenAPI specifications.
+  <Card title="Engineering Reports" icon="file-lines" href="/reference/reports">
+    Generate and print design summary reports with project info, geometry, wind/seismic data, and results.
   </Card>
-</Columns>
+</CardGroup>
 
-## Create beautiful pages
+## Core capabilities
 
-Everything you need to create world-class documentation.
+<CardGroup cols={3}>
+  <Card title="5 support types" icon="screwdriver-wrench">
+    Saddle, Skirt, Legs (braced/unbraced), Lug, and Ring supports — each with full geometry inputs.
+  </Card>
+  <Card title="Dual code support" icon="book">
+    ASME/ASCE and COVENIN seismic and wind load code paths for US and Venezuelan projects.
+  </Card>
+  <Card title="SI & US units" icon="ruler">
+    Switch between metric (mm, MPa, °C) and imperial (in, psi, °F) unit systems at any time.
+  </Card>
+  <Card title="ASME materials" icon="database">
+    Built-in reference tables for ASME VIII Division 1 and Division 2 material properties.
+  </Card>
+  <Card title="Print/export" icon="print">
+    Export design summaries as print-ready HTML pages with project metadata and results.
+  </Card>
+  <Card title="Dark mode" icon="moon">
+    Full dark mode support with a collapsible sidebar for comfortable extended-session use.
+  </Card>
+</CardGroup>
 
-<Columns cols={2}>
-  <Card
-    title="Write with MDX"
-    icon="pen-fancy"
-    href="/essentials/markdown"
-  >
-    Use MDX to style your docs pages.
-  </Card>
-  <Card
-    title="Code samples"
-    icon="code"
-    href="/essentials/code"
-  >
-    Add sample code to demonstrate how to use your product.
-  </Card>
-  <Card
-    title="Images"
-    icon="image"
-    href="/essentials/images"
-  >
-    Display images and other media.
-  </Card>
-  <Card
-    title="Reusable snippets"
-    icon="recycle"
-    href="/essentials/reusable-snippets"
-  >
-    Write once and reuse across your docs.
-  </Card>
-</Columns>
+## How it works
 
-## Need inspiration?
+<Steps>
+  <Step title="Create an account and log in">
+    Register at `/registro` and sign in to access the full platform dashboard.
+  </Step>
+  <Step title="Enter vessel geometry">
+    Navigate to **Support Design** and fill in outer diameter, length/height, wall thickness, insulation, fluid level, and specific gravity.
+  </Step>
+  <Step title="Configure loads">
+    Set wind zone, exposure category, and seismic parameters (site class, Ss, S1, or COVENIN city/state/soil type).
+  </Step>
+  <Step title="Select and configure a support type">
+    Choose from saddle, skirt, legs, lug, or ring support — each with its own geometry panel.
+  </Step>
+  <Step title="Review analysis and export">
+    Check the analysis dashboard for metric results and charts, then print the design summary report.
+  </Step>
+</Steps>
 
-<Card
-  title="See complete examples"
-  icon="stars"
-  href="https://mintlify.com/customers"
->
-  Browse our showcase of exceptional documentation sites.
-</Card>
+## Quick navigation
+
+<CardGroup cols={2}>
+  <Card title="Introduction" icon="book-open" href="/introduction">
+    Learn about PSI's scope, architecture, and engineering background.
+  </Card>
+  <Card title="Quickstart" icon="rocket" href="/quickstart">
+    Get from login to your first design calculation in under 5 minutes.
+  </Card>
+  <Card title="Support Types" icon="layer-group" href="/supports/saddle">
+    Detailed documentation for each of the five supported configurations.
+  </Card>
+  <Card title="Design Codes" icon="scale-balanced" href="/loads/design-codes">
+    Overview of ASME/ASCE and COVENIN code implementations.
+  </Card>
+</CardGroup>

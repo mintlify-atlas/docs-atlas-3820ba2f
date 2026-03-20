@@ -1,0 +1,83 @@
+---
+title: "Design Codes"
+description: "Overview of supported engineering design codes: ASME/ASCE and COVENIN"
+---
+
+PSI supports two code families that govern the structural design of pressure vessel supports. The selected code controls which seismic input fields are shown, which load combination factors are applied, and how the summary report is labeled. Wind load configuration is compatible with both code families.
+
+<CardGroup cols={2}>
+  <Card title="ASME / ASCE" icon="building">
+    American standards for mechanical and civil/structural engineering. Used for US domestic projects and international projects adopting US methodology.
+
+    - Pressure vessel: ASME Boiler and Pressure Vessel Code (BPVC) Section VIII Division 1 and Division 2
+    - Wind: ASCE 7 exposure category method
+    - Seismic: ASCE 7 / IBC equivalent lateral force, USGS spectral maps
+    - Material allowables: ASME II Part D
+  </Card>
+  <Card title="COVENIN" icon="map">
+    Venezuelan national standards issued by the Comisión Venezolana de Normas Industriales. Mandatory for facilities regulated by Venezuelan authorities.
+
+    - Seismic: COVENIN 1756, state-level hazard maps
+    - Soil classification: S1 (rock) through S4 (very soft)
+    - Importance groups: A (critical), B1, B2
+    - Wind: compatible with ASCE exposure category inputs
+  </Card>
+</CardGroup>
+
+## Code Comparison
+
+The table below summarizes how each code family handles the key design parameters relevant to pressure vessel support design in PSI.
+
+| Dimension | ASME / ASCE | COVENIN |
+|-----------|-------------|----------|
+| **Governing body** | ASME / ASCE (USA) | FONDONORMA / COVENIN (Venezuela) |
+| **Seismic hazard definition** | Spectral maps (Ss, S1) from USGS by coordinates | Regional hazard by state and municipality |
+| **Site characterization** | Site Classes A – F per ASCE 7 | Soil Types S1 – S4 per COVENIN 1756 |
+| **Importance classification** | Risk Categories I – IV (ASCE 7 Table 1.5-1) | Importance Groups A, B1, B2 |
+| **Response modification** | R per ASCE 7 Table 15.4-2 | R per COVENIN 1756 Table 6 |
+| **Pressure vessel standard** | ASME VIII Div. 1 / Div. 2 | Referenced by project spec (often ASME) |
+| **Wind method** | ASCE 7 velocity pressure, exposure B/C/D | Exposure category method (ASCE-compatible) |
+| **Unit system** | SI or US customary | SI |
+
+## ASME / ASCE Code Family
+
+The ASME/ASCE code path applies the following standards:
+
+**ASME BPVC Section VIII** governs the design and fabrication of the pressure vessel shell, heads, and nozzles. PSI uses allowable stress values from ASME II Part D to check wall thickness and nozzle reinforcement. Division 1 uses a design factor of 3.5 on tensile strength; Division 2 uses more rigorous analysis methods with a lower factor.
+
+**ASCE 7** governs the environmental loads (wind and seismic) applied to the support structure. The equivalent lateral force (ELF) procedure from ASCE 7 Chapter 15 is used for non-building structures including pressure vessel supports.
+
+**IBC (International Building Code)** adopts ASCE 7 by reference and may impose additional requirements based on occupancy and risk category.
+
+## COVENIN Code Family
+
+The COVENIN code path applies the Venezuelan **COVENIN 1756** standard for earthquake-resistant design:
+
+**Seismic hazard** is defined by the state and city rather than by spectral coordinates. The standard provides design peak ground acceleration (PGA) values by region derived from probabilistic seismic hazard analysis of Venezuela.
+
+**Soil amplification** uses four soil categories (S1–S4) with spectral amplification curves defined in COVENIN 1756. These categories are distinct from ASCE 7 Site Classes and use different amplification values.
+
+**Importance groups** (A, B1, B2) scale the design seismic force in a manner analogous to ASCE 7 Risk Categories, but with different numerical factors. Facilities storing hazardous materials or serving critical infrastructure are typically Group A.
+
+## Selecting the Appropriate Code
+
+<Steps>
+  <Step title="Identify the regulatory jurisdiction">
+    Determine which regulatory authority has jurisdiction over the facility. Venezuelan projects subject to MPPEE (Ministerio del Poder Popular para la Energía y Electricidad) or similar authorities must use COVENIN. Projects in the US or under US export requirements use ASME/ASCE.
+  </Step>
+  <Step title="Check the project specification">
+    The client's engineering specification or PDP (Process Design Package) will typically state the governing code suite. If no code is specified, use ASME/ASCE as the default for international projects.
+  </Step>
+  <Step title="Select the code in PSI">
+    Open the design form and select **ASME/ASCE** or **COVENIN** from the **Código** dropdown at the top of the form. The seismic input card will immediately update to show the fields appropriate for that code.
+  </Step>
+  <Step title="Enter code-specific seismic parameters">
+    For ASME/ASCE: obtain Ss and S1 from the USGS Unified Hazard Tool for the site coordinates and enter the appropriate Site Class from the geotechnical report.
+
+    For COVENIN: select the state, enter the city, and choose the soil type from the geotechnical report using the S1–S4 classification.
+  </Step>
+</Steps>
+
+<Warning>
+  Do not mix parameters from the two code families. ASCE 7 Site Class values (A–F) are not interchangeable with COVENIN soil types (S1–S4), and their amplification factors are defined by different equations. Similarly, R factor values from ASCE 7 Table 15.4-2 are not the same as COVENIN 1756 Table 6 values. Using ASCE 7 R factors in the COVENIN code path — or vice versa — will produce non-compliant results.
+</Warning>

@@ -1,0 +1,73 @@
+---
+title: "Saddle Supports"
+description: "Configure saddle supports for horizontal pressure vessels. Define saddle geometry, contact angle, web and base plate dimensions, rib stiffeners, and friction type."
+---
+
+Saddle supports are the standard support configuration for horizontal pressure vessels. Two symmetrical saddles cradle the vessel shell, transferring dead weight, seismic, and wind loads to the foundation. Saddle geometry is evaluated per Zick's method (ASME/Eurocode) to check local shell stresses at the saddle horn and midspan.
+
+<CardGroup cols={2}>
+  <Card title="Horizontal vessels" icon="arrow-right-arrow-left">
+    Saddles are exclusively used with horizontal cylindrical vessels. The location parameter places each saddle relative to the nearest head weld.
+  </Card>
+  <Card title="Two-saddle rule" icon="scale-balanced">
+    PSI always models a two-saddle configuration. Asymmetric placement (unequal `saddleLocation` values) is handled by entering different values for each saddle instance.
+  </Card>
+</CardGroup>
+
+## Parameters
+
+### Geometry
+
+<ParamField path="saddleHeight" type="number" required>
+  Height of the saddle web measured from the bottom of the base plate to the vessel shell centreline. Increasing saddle height raises the vessel clearance above the foundation.
+</ParamField>
+
+<ParamField path="saddleLocation" type="number" required>
+  Horizontal distance from the nearest head tangent weld line to the saddle centreline. Positioning saddles close to the heads (typically 0.2 × vessel length) reduces bending moments in the shell.
+</ParamField>
+
+<ParamField path="saddleContactAngle" type="select" required>
+  Arc of contact between the saddle and the vessel shell. Options: **120°** or **150°**.
+</ParamField>
+
+<Note>
+  A **120° contact angle** is the minimum recommended for most vessels and produces higher local stresses at the saddle horn. A **150° contact angle** distributes the load over a wider arc, reducing horn stresses and is preferred for thin-walled or large-diameter vessels. Select 150° when shell stress checks are marginal at 120°.
+</Note>
+
+### Web and Base Plate
+
+<ParamField path="saddleWebThickness" type="number" required>
+  Thickness of the saddle web plate that runs along the vessel axis. The web transfers shear from the vessel shell down to the base plate.
+</ParamField>
+
+<ParamField path="saddleBasePlateWidth" type="number" required>
+  Width of the saddle base plate (dimension perpendicular to the vessel axis). Must be compatible with the foundation bolt pattern.
+</ParamField>
+
+<ParamField path="saddleBasePlateLength" type="number" required>
+  Length of the saddle base plate (dimension along the vessel axis). Longer base plates distribute the bearing load over a greater foundation area.
+</ParamField>
+
+### Rib Stiffeners
+
+<Info>
+  Rib parameters are only shown when the vessel type is **Horizontal**. Ribs are vertical stiffener plates welded between the web and base plate to prevent web buckling.
+</Info>
+
+<ParamField path="saddleRibCount" type="select">
+  Number of rib stiffener plates per saddle. Options: **3**, **5**, or **7**. A higher rib count increases out-of-plane stiffness and is required for wide saddles or heavy vessels.
+</ParamField>
+
+<ParamField path="saddleRibThickness" type="number">
+  Thickness of each rib plate (mm). Ribs are typically the same material and at least as thick as the web plate.
+</ParamField>
+
+### Friction
+
+<ParamField path="saddleFrictionType" type="select" required>
+  Friction condition at the sliding saddle. Options: **Frictionless** or **High friction**.
+</ParamField>
+
+<Note>
+  In a two-saddle configuration, one saddle is typically anchored (fixed) and the other is free to slide to accommodate thermal expansion. Setting the sliding saddle to **Frictionless** represents a PTFE or roller bearing interface. **High friction** represents a steel-on-steel contact without a slide plate, which transmits larger horizontal loads to the foundation.
+</Note>

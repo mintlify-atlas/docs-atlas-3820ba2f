@@ -1,0 +1,108 @@
+---
+title: "Ring Supports"
+description: "Configure ring girder or ring beam supports for pressure vessels. Define ring profile type, OD, ID, web and flange geometry, optional gusset plates, and bolt circle or anchor span."
+---
+
+Ring supports (ring girders or ring beams) are continuous annular structural elements that encircle the vessel shell, distributing the vessel load uniformly around the circumference into a supporting structure below. They are used on large vertical vessels where point loads from individual legs would cause excessive local shell stresses, and on horizontal vessels mounted on structural skids or frames.
+
+<CardGroup cols={2}>
+  <Card title="Uniform load distribution" icon="circle">
+    The ring girder averages out the concentrated reactions from discrete support points, presenting the vessel shell with a nearly uniform radial load.
+  </Card>
+  <Card title="Horizontal vessel variant" icon="arrows-left-right">
+    For horizontal ring supports, the elevation field is relabelled **Distance from Head Weld** and the bolt circle field becomes **Anchor span (transverse)** to reflect the different mounting geometry.
+  </Card>
+</CardGroup>
+
+## Parameters
+
+### Position
+
+<ParamField path="ringElevation" type="number" required>
+  Vertical position of the ring support on the vessel.
+
+  - For **vertical vessels**: elevation above the vessel datum (bottom tangent line).
+  - For **horizontal vessels**: distance from the nearest head tangent weld line to the ring centreline. The field label changes to **Distance from Head Weld** automatically.
+</ParamField>
+
+<ParamField path="ringSupportHeight" type="number">
+  Height of the ring support assembly measured from the supporting structure to the vessel shell contact point. Only shown when the vessel type is **Horizontal**.
+</ParamField>
+
+### Ring Profile
+
+<ParamField path="ringProfile" type="select" required>
+  Cross-section type of the ring girder. Options: **Type A** or **Type B**.
+</ParamField>
+
+<Tabs>
+  <Tab title="Type A">
+    Type A is a T-section ring with a single flange. The web plate is oriented radially and the flange is attached at the outer edge. This profile is used where the ring is primarily loaded in bending about its radial axis and space constraints limit the section depth.
+  </Tab>
+  <Tab title="Type B">
+    Type B is an I-section (or box-section) ring with flanges at both the inner and outer edges of the web. The additional flange improves bending efficiency and lateral stability. Type B is preferred for larger, more heavily loaded vessels.
+  </Tab>
+</Tabs>
+
+### Ring Dimensions
+
+<ParamField path="ringOD" type="number" required>
+  Outside diameter of the ring girder. For a ring welded to the vessel shell, this value is typically the vessel shell OD plus twice the web height.
+</ParamField>
+
+<ParamField path="ringID" type="number" required>
+  Inside diameter of the ring girder. For a ring welded to the vessel shell OD, `ringID` equals the vessel shell OD. `ringOD` minus `ringID` gives twice the web height.
+</ParamField>
+
+<ParamField path="ringHoleType" type="string">
+  Description or designation of any access or lightening holes in the ring web (e.g., `Round 50mm` or `Oval 100x50`). Holes reduce section area and must be accounted for in stress calculations.
+</ParamField>
+
+### Web Geometry
+
+<ParamField path="ringWebHeight" type="number" required>
+  Radial height of the ring web plate, measured from the vessel shell OD (or ring ID) to the outer flange face. Increasing web height increases the section modulus and reduces bending stress.
+</ParamField>
+
+<ParamField path="ringWebThickness" type="number" required>
+  Thickness of the ring web plate. The web is checked for shear stress and local buckling.
+</ParamField>
+
+### Flange Geometry
+
+<ParamField path="ringFlangeWidth" type="number" required>
+  Width of the ring flange plate. For **Type A**, this is the outer flange. For **Type B**, this dimension applies to both the inner and outer flanges. The flange provides the primary bending resistance.
+</ParamField>
+
+<ParamField path="ringFlangeThickness" type="number" required>
+  Thickness of the ring flange plate. Combined with `ringFlangeWidth`, defines the flange cross-sectional area and moment of inertia contribution.
+</ParamField>
+
+### Gusset Plates
+
+<ParamField path="ringGussets" type="select" required>
+  Whether gusset plates are welded to the ring to increase torsional stiffness and improve load transfer at support points. Options: **Yes** or **No**.
+</ParamField>
+
+When **Gussets** is set to **Yes**, the following parameters appear:
+
+<ParamField path="ringGussetQty" type="number">
+  Number of gusset plates equally spaced around the ring circumference. Gussets are typically located at each support column or beam intersection.
+</ParamField>
+
+<ParamField path="ringGussetThickness" type="number">
+  Thickness of each gusset plate. Gussets are checked for shear and bearing at their connection to the ring web and flange.
+</ParamField>
+
+<ParamField path="ringGussetWidth" type="number">
+  Width (radial extent) of each gusset plate. A wider gusset engages more of the web area and provides a larger weld length to the vessel shell or inner flange.
+</ParamField>
+
+### Anchor Geometry
+
+<ParamField path="ringBoltCircle" type="number" required>
+  Pitch circle diameter on which anchor bolts are located.
+
+  - For **vertical vessels**: labelled **Bolt circle**. Anchor bolts pass through the ring flange into the supporting structure below.
+  - For **horizontal vessels**: labelled **Anchor span (transverse)**. Represents the distance between anchor bolt centrelines measured perpendicular to the vessel axis.
+</ParamField>

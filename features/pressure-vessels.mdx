@@ -1,0 +1,65 @@
+---
+title: "Pressure Vessels"
+description: "Analyze and design pressure vessel parameters including geometry, materials, and operating conditions"
+---
+
+The Pressure Vessels module is the foundational entry point for all support calculations in PSI. Before designing or analyzing a support, you define the vessel itself — its geometry, material, and the fluid it contains. These parameters propagate through every downstream calculation.
+
+<Note>
+  The Vessels page (`/recipientes-analisis`) is currently under construction. A countdown timer is displayed while the feature is being finalized. Subscribe with your email on the page to receive launch notifications.
+</Note>
+
+## Vessel Types
+
+PSI supports three vessel configurations. The vessel type determines which geometry inputs are shown and how loads are calculated.
+
+<CardGroup cols={3}>
+  <Card title="Horizontal" icon="arrow-right">
+    A cylindrical vessel oriented along a horizontal axis. Requires outer diameter and length. Typically supported on saddles.
+  </Card>
+  <Card title="Columna Vertical" icon="arrow-up">
+    A vertical cylindrical column. Requires outer diameter and height. Typically supported on a skirt or legs.
+  </Card>
+  <Card title="Esférico" icon="circle">
+    A spherical vessel. Only requires outer diameter — the length/height field is hidden because the geometry is fully defined by the diameter alone.
+  </Card>
+</CardGroup>
+
+## Geometry Inputs
+
+The geometry panel collects all dimensional and fluid properties needed to compute vessel weight, projected wind area, and seismic mass.
+
+| Field | Description | Unit (SI / US) |
+|---|---|---|
+| **Diámetro exterior** | Outer diameter of the vessel shell | mm / in |
+| **Longitud / Altura** | Shell length (horizontal) or height (vertical column) | mm / in |
+| **Material del recipiente** | Vessel shell material — drives density and allowable stress | — |
+| **Espesor de pared** | Nominal shell wall thickness | mm / in |
+| **Espesor de aislamiento** | Insulation layer thickness added to the outer profile | mm / in |
+| **Nivel líquido (%)** | Fill level of the contained fluid, from 0 % (empty) to 100 % (full) | % |
+| **Gravedad específica del fluido** | Specific gravity of the process fluid relative to water | — |
+
+<Tip>
+  The unit system (SI or US Customary) is selected globally. All geometry labels automatically switch between **mm** and **in** depending on the active unit system.
+</Tip>
+
+## Material Options
+
+The following vessel shell materials are available in the geometry panel:
+
+- **Carbon steel** — general-purpose, highest density, widest temperature range
+- **Stainless steel 304** — austenitic, good corrosion resistance
+- **Stainless steel 316** — austenitic with molybdenum, enhanced pitting resistance
+- **Alloy steel** — higher strength grades for elevated temperature or pressure service
+
+Material selection affects vessel self-weight, which feeds directly into support load calculations.
+
+## How Vessel Data Flows
+
+Once vessel parameters are entered they are used throughout the application:
+
+1. **Support Design** (`/soporte-diseno`) — vessel geometry and weight are pre-populated in the Geometry & Weight card.
+2. **Support Analysis** (`/soporte-analisis`) — operating weight and dimensions drive the analytics metrics and charts.
+3. **Weld Design** (`/soldadura-diseno`) — vessel outer diameter and wall thickness inform attachment weld sizing.
+
+The vessel definition is therefore the single source of truth for the entire calculation chain.

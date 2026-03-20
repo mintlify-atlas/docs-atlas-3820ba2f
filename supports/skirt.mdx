@@ -1,0 +1,86 @@
+---
+title: "Skirt Supports"
+description: "Configure skirt supports for vertical vessels and columns. Define skirt geometry (cylindrical or conical), anchor bolt pattern, and optional anchor chair sub-configuration."
+---
+
+Skirt supports are the standard support method for tall vertical pressure vessels, distillation columns, and reactors. A cylindrical or conical shell (the skirt) is welded to the vessel bottom head and extends to a base ring anchored to the concrete foundation. Skirts efficiently carry axial compressive loads, bending moments from wind and seismic forces, and thermal growth.
+
+<CardGroup cols={2}>
+  <Card title="Vertical vessels" icon="arrow-up">
+    Skirts are used exclusively with vertical cylindrical vessels and columns. The skirt provides a large, stable base that resists overturning moments.
+  </Card>
+  <Card title="Anchor bolt ring" icon="circle-dot">
+    Anchor bolts are distributed evenly around a bolt circle at the base ring, transferring tension and shear into the concrete pedestal.
+  </Card>
+</CardGroup>
+
+## Parameters
+
+### Skirt Geometry
+
+<ParamField path="skirtHeight" type="number" required>
+  Total height of the skirt from the base ring to the attachment weld at the vessel bottom head. Taller skirts provide more access space below the vessel for piping and maintenance.
+</ParamField>
+
+<ParamField path="skirtThickness" type="number" required>
+  Shell thickness of the skirt. The skirt must be checked for combined axial compression and bending under operating and erection (empty + wind) load combinations.
+</ParamField>
+
+<ParamField path="skirtBaseDiameter" type="number" required>
+  Outside diameter of the skirt at the base ring level. For cylindrical skirts this equals the vessel shell OD. For conical skirts it is the larger (bottom) diameter.
+</ParamField>
+
+<ParamField path="skirtGeometry" type="select" required>
+  Shape of the skirt shell. Options: **Cylindrical (Straight)** or **Conical (Tapered)**.
+</ParamField>
+
+<Tabs>
+  <Tab title="Cylindrical (Straight)">
+    The skirt has a constant diameter equal to `skirtBaseDiameter` from the base ring to the vessel attachment weld. This is the most common configuration and is preferred when the vessel shell and skirt are the same diameter.
+  </Tab>
+  <Tab title="Conical (Tapered)">
+    The skirt diameter varies linearly from `skirtBaseDiameter` at the base ring to `skirtTopDiameter` at the vessel attachment weld. A conical skirt is used when the skirt base needs to be wider than the vessel shell to improve stability, or when aesthetics or process layout require a tapered profile.
+
+    <ParamField path="skirtTopDiameter" type="number">
+      Inside diameter of the skirt at the top (vessel attachment) end. Only shown when **Conical (Tapered)** geometry is selected. Must be less than `skirtBaseDiameter`.
+    </ParamField>
+  </Tab>
+</Tabs>
+
+### Anchor Bolt Pattern
+
+<ParamField path="skirtBoltCircleDiameter" type="number" required>
+  Diameter of the bolt circle (Dbc) — the pitch circle on which anchor bolt centrelines lie. The bolt circle is typically slightly smaller than the base ring OD.
+</ParamField>
+
+<ParamField path="boltQuantity" type="number" required>
+  Number of anchor bolts equally spaced around the bolt circle. Also stored as `skirtAnchorBoltCount`. Even numbers are required for symmetric loading. Typical values are 4, 8, 12, or 16.
+</ParamField>
+
+<ParamField path="boltDiameter" type="number" required>
+  Nominal diameter of each anchor bolt. Also stored as `skirtAnchorBoltDiameter`. Bolt size is selected based on the maximum tensile force per bolt under the governing overturning load combination.
+</ParamField>
+
+### Anchor Chairs
+
+<ParamField path="skirtAnchorChairs" type="select" required>
+  Whether anchor chairs are included at each bolt location. Options: **Yes** or **No**. Anchor chairs are welded gusset assemblies that reinforce the skirt shell locally at the anchor bolt penetration and provide a bearing surface for the bolt nut.
+</ParamField>
+
+<Note>
+  Anchor chairs are strongly recommended for vessels in seismic zones or where the anchor bolt tensile load exceeds the skirt shell capacity. Chairs distribute the bolt pull-out force over a larger area of the skirt shell, preventing local yielding.
+</Note>
+
+When **Use Anchor Chairs** is set to **Yes**, the following additional parameters appear:
+
+<ParamField path="skirtChairHeight" type="number">
+  Height of the anchor chair gusset plates, measured from the base ring top surface. Taller chairs provide a longer weld length and reduce peak stress in the skirt shell.
+</ParamField>
+
+<ParamField path="skirtChairTopPlateWidth" type="number">
+  Width of the chair top plate, which bears against the anchor bolt nut or washer. Must accommodate the bolt nut flat-to-flat dimension plus edge clearance.
+</ParamField>
+
+<ParamField path="skirtChairTopPlateThickness" type="number">
+  Thickness of the chair top plate. The top plate is checked for bending under the bolt pre-tension and operating tensile load.
+</ParamField>

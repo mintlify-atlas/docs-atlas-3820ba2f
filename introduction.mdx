@@ -1,0 +1,107 @@
+---
+title: "Introduction"
+description: "PSI is a browser-based SaaS platform for structural and pressure vessel engineering calculations, built for mechanical and civil engineers who need fast, code-compliant support designs."
+---
+
+PSI (Pressure vessel Support Indicator) is a React/TypeScript web application that brings rigorous structural and pressure vessel engineering calculations directly into the browser — no installation, no spreadsheets, no manual code lookups. Engineers enter vessel geometry, loading conditions, and support parameters; PSI computes stresses, reactions, and code-compliance checks in real time.
+
+## Two Engineering Domains
+
+The application is organized around two principal domains, accessible from the sidebar:
+
+<CardGroup cols={2}>
+  <Card title="Pressure Elements" icon="gauge">
+    Design and analyze supports for pressure vessels — horizontal, vertical column, and spherical geometries. Includes saddle, skirt, leg, lug, and ring support types, each with dedicated parameter forms and result dashboards.
+  </Card>
+  <Card title="Structural Elements" icon="wrench">
+    Analyze beams and perform weld design and analysis. Covers common structural profiles with code-compliant stress checks for industrial and petrochemical plant structures.
+  </Card>
+</CardGroup>
+
+## Pressure Vessel Support Types
+
+PSI covers all standard support configurations used in the process industry:
+
+| Support | Typical Vessel | Key Parameters |
+|---|---|---|
+| **Saddle** | Horizontal | Height, location, contact angle (120°/150°), web thickness, base plate, rib count |
+| **Skirt** | Columna vertical | Height, thickness, base diameter, cylindrical or conical geometry, anchor bolts, anchor chairs |
+| **Legs (unbraced)** | Spherical, Vertical | Quantity (3/4/6/8), profile (Rectangular/Angle/Tube), length, bolt circle |
+| **Legs (braced)** | Spherical, Vertical | Profiles (Angle L, Beam W/I, Pipe, Square Tube HSS), brace profile, bracing tiers |
+| **Lug** | Vertical, Spherical | Quantity, elevation, dimensions, eccentricity, optional gusset and pad plate |
+| **Ring** | Horizontal, Vertical | Profile type A/B, OD/ID, web and flange dimensions, optional gussets, bolt circle |
+
+The **Anchoring** module handles foundation anchor bolt design — bolt quantity, diameter, material (Carbon steel, Stainless steel, A325, A490), embedment depth, concrete strength, and anchor type (Hex Head, L-Hook, J-Hook, Epoxy).
+
+## Material Library
+
+Vessel material is selected per calculation and feeds directly into allowable stress lookups:
+
+- Carbon steel
+- Stainless steel 304
+- Stainless steel 316
+- Alloy steel
+
+ASME Section VIII Division 1 and Division 2 material tables are available at `/basic-tables` and `/data-tables` respectively, covering the full range of allowable stresses by temperature.
+
+## Engineering Code Compliance
+
+PSI supports two seismic design code families, selectable per project:
+
+<CardGroup cols={2}>
+  <Card title="ASME / ASCE" icon="building">
+    Site class A through F, mapped spectral accelerations Ss and S1, and response modification factor R. Applicable to US-based projects and international projects adopting ASCE 7.
+  </Card>
+  <Card title="COVENIN" icon="map">
+    Venezuelan seismic code. Select state and city, soil type S1 (rock) through S4 (soft), importance group A/B1/B2, and response factor R. All Venezuelan states are available in the location selector.
+  </Card>
+</CardGroup>
+
+Wind loading follows a zone-based approach (Zone 1, 2, or 3) with exposure categories B, C, and D and a configurable importance factor — consistent with ASCE 7 wind provisions. A manual wind pressure override (m/s or kPa in SI; mph or psf in US customary) is also supported.
+
+## Unit Systems
+
+<Note>
+  PSI supports both **SI** (mm, kPa, kN) and **US customary** (in, psf, kip) unit systems. The active system is toggled globally and all input labels and placeholders update automatically — no manual unit conversion required.
+</Note>
+
+Geometry inputs such as outer diameter, wall thickness, insulation thickness, and support dimensions all adapt their labels to the selected unit system.
+
+## Key Features at a Glance
+
+<CardGroup cols={2}>
+  <Card title="Browser-based" icon="globe">
+    No desktop software or plugins required. PSI runs entirely in the browser and is accessible from any device with a modern web browser.
+  </Card>
+  <Card title="Real-time results" icon="chart-bar">
+    Calculations update as you type. The analysis dashboard at `/soporte-analisis` displays metrics, charts, and result tables derived from your current design inputs.
+  </Card>
+  <Card title="Dark mode" icon="moon">
+    Full dark mode support throughout the interface. Toggle between light and dark themes to suit your working environment.
+  </Card>
+  <Card title="Print & export" icon="printer">
+    Generate a formatted summary report of your design inputs and results. Print directly from the browser or export to PDF for documentation and client deliverables.
+  </Card>
+</CardGroup>
+
+## Navigation Overview
+
+The sidebar organizes the application into three sections:
+
+**Elementos a presión**
+- Recipientes (`/recipientes-analisis`) — Vessel analysis
+- Análisis de soportes (`/soporte-analisis`) — Support results dashboard
+- Diseño de soportes (`/soporte-diseno`) — Support design input form
+
+**Elementos estructurales**
+- Vigas (`/vigas-analisis`) — Beam analysis
+- Análisis de soldadura (`/soldadura-analisis`) — Weld analysis
+- Diseño de soldadura (`/soldadura-diseno`) — Weld design
+
+**Tablas**
+- Materiales ASME VIII DIV 1 (`/basic-tables`)
+- Materiales ASME VIII DIV 2 (`/data-tables`)
+
+<Info>
+  PSI's interface is in Spanish, reflecting its primary user base in Latin American engineering practice. This documentation is in English to serve the broadest international audience.
+</Info>

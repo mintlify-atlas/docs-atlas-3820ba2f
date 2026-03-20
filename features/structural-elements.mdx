@@ -1,0 +1,55 @@
+---
+title: "Structural Elements"
+description: "Design and analyze structural beams and connections for pressure vessel support structures"
+---
+
+The Structural Elements module covers the steel members and connections that make up pressure vessel support structures. It is organized into three sub-features accessible from the **Elementos estructurales** section of the sidebar.
+
+<CardGroup cols={3}>
+  <Card title="Beams (Vigas)" icon="minus">
+    Structural beam analysis for support frames. Route: `/vigas-analisis`. Currently under construction — subscribe on the page for launch notifications.
+  </Card>
+  <Card title="Weld Analysis" icon="circle-dot">
+    Analyze weld configurations and review results for structural connections. Route: `/soldadura-analisis`.
+  </Card>
+  <Card title="Weld Design" icon="pen-ruler">
+    Design weld joints for pressure vessel attachments and support connections. Route: `/soldadura-diseno`.
+  </Card>
+</CardGroup>
+
+## Beam Analysis
+
+The Beam Analysis page (`/vigas-analisis`) is currently under construction. The page displays a **Próximamente** (Coming Soon) screen with a countdown timer set approximately 29 days from the current date.
+
+<Note>
+  Beam analysis is not yet available. Enter your email on the `/vigas-analisis` page to receive a notification when the feature launches.
+</Note>
+
+When complete, this module will support analysis of structural beams used in horizontal saddle frames, vertical leg bracing, and platform structures attached to pressure vessels.
+
+## Structural Profiles
+
+When leg-type supports include bracing members, PSI supports the following standard structural profiles:
+
+| Profile Type | Designation Example | Description |
+|---|---|---|
+| **Angle (L)** | L2x2x1/4 | Equal-leg or unequal-leg angles used as diagonal braces |
+| **Beam (W/I)** | W8x31 | Wide-flange or I-beam sections for heavier brace frames |
+| **Pipe (Sch 40/80)** | Pipe 3" Sch 40 | Circular hollow sections with schedule-defined wall thickness |
+| **Square Tube (HSS)** | HSS 4x4x1/4 | Hollow structural sections for compact braced frames |
+
+Profile selection affects member capacity checks for axial load, bending, and combined loading per the applicable code.
+
+## Braced Leg Configurations
+
+For leg-supported vessels, brace members connect between the legs to resist lateral loads from wind and seismic events. The bracing layout — X-brace, K-brace, or diagonal — is configured in the Support Design page when the **Legs** support type is selected.
+
+The brace profile designation (e.g., `L2x2x1/4` for a 2 × 2 × 1/4 inch angle) sets the section properties used in the capacity calculations.
+
+## Weld Analysis and Weld Design
+
+The weld modules are covered in detail on the [Weld Design](/features/weld-design) page. Both routes (`/soldadura-analisis` and `/soldadura-diseno`) are part of this structural elements group and are currently showing coming-soon screens as the full structural expansion is built out.
+
+<Tip>
+  The sidebar groups all three structural sub-features under **Elementos estructurales**. Use this section to navigate between beam analysis, weld analysis, and weld design.
+</Tip>

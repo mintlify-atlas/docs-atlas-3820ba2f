@@ -1,0 +1,79 @@
+---
+title: "Anchoring"
+description: "Configure the anchor bolt pattern used with all PSI support types. Define bolt quantity, diameter, material, embedment, concrete strength, anchor type, and edge distance."
+---
+
+The Anchoring configuration defines how the vessel support structure is fastened to its concrete foundation. These parameters apply across all support types — saddles, skirts, legs, lugs, and rings — and govern the design of the anchor bolt group against tension pull-out, shear breakout, and concrete cone failure modes.
+
+<CardGroup cols={2}>
+  <Card title="Bolt group design" icon="screwdriver-wrench">
+    PSI calculates the governing tensile and shear demand on the anchor bolt group from overturning moments, seismic shear, and thermal expansion forces.
+  </Card>
+  <Card title="Concrete capacity" icon="building">
+    Concrete strength and anchor embedment depth together determine the concrete pull-out and breakout capacities per ACI 318 Appendix D / EN 1992-4.
+  </Card>
+</CardGroup>
+
+## Parameters
+
+### Bolt Pattern
+
+<ParamField path="boltQuantity" type="select" required>
+  Total number of anchor bolts in the group. Options: **2**, **4**, **6**, **8**, or **12**. Bolts are assumed to be equally spaced on the bolt circle. Even numbers are required for symmetric load distribution.
+</ParamField>
+
+<ParamField path="boltDiameter" type="number" required>
+  Nominal diameter of each anchor bolt (mm). Used to calculate the tensile stress area and the bearing area for shear. Ensure the selected diameter is consistent with the bolt material and grade.
+</ParamField>
+
+### Bolt Material
+
+<ParamField path="boltMaterial" type="select" required>
+  Material grade of the anchor bolts. Options:
+
+  - **Carbon steel** — Standard low-carbon steel. Suitable for ambient temperature, non-corrosive service.
+  - **Stainless steel** — Austenitic stainless (304/316). Used in corrosive environments or where bolt exposure is a concern.
+  - **A325** — High-strength structural bolt per ASTM A325. Minimum tensile strength 120 ksi (827 MPa). Common in structural connections.
+  - **A490** — Very high-strength structural bolt per ASTM A490. Minimum tensile strength 150 ksi (1034 MPa). Used where bolt size must be minimised.
+</ParamField>
+
+### Embedment and Concrete
+
+<ParamField path="embedmentDepth" type="number" required>
+  Depth from the top of the concrete foundation to the bottom of the anchor bolt bearing surface (hook tip or nut). Deeper embedment increases the concrete cone pull-out capacity.
+</ParamField>
+
+<ParamField path="concreteStrength" type="number" required>
+  Specified compressive strength of the foundation concrete, f'c, in MPa. Higher concrete strength increases all concrete-controlled failure capacities (pull-out, breakout, pry-out, splitting).
+</ParamField>
+
+### Anchor Type
+
+<ParamField path="anchorType" type="select" required>
+  Mechanical form of the anchor. Options: **Hex Head Bolt**, **L-Hook Bolt**, **J-Hook Bolt**, or **Epoxy Anchor**.
+</ParamField>
+
+<Tabs>
+  <Tab title="Hex Head Bolt">
+    A straight bolt with a hex head at the embedded end and a nut and washer at the surface. Load transfer is primarily through bearing of the hex head against the concrete. Suitable for new construction where the foundation is cast around the bolt template.
+  </Tab>
+  <Tab title="L-Hook Bolt">
+    A bolt with an L-shaped bend at the embedded end. The horizontal leg of the L provides mechanical interlock with the concrete in addition to bond. The hook geometry resists both tension (pull-out) and shear. Commonly used in refinery and petrochemical foundations.
+  </Tab>
+  <Tab title="J-Hook Bolt">
+    A bolt with a J-shaped curved hook at the embedded end. The curved hook provides uplift resistance through mechanical bearing against the concrete. J-hook bolts are often used for tall vertical vessels and elevated pressure spheres where wind uplift is critical.
+  </Tab>
+  <Tab title="Epoxy Anchor">
+    A post-installed anchor where an adhesive (epoxy) is injected into a pre-drilled hole before inserting a threaded rod. Load is transferred by bond between the epoxy and both the concrete and the rod. Used for retrofit applications where the foundation was cast without embedded bolts. Capacity is sensitive to hole cleanliness, cure temperature, and sustained load.
+  </Tab>
+</Tabs>
+
+### Edge Distance
+
+<ParamField path="anchorEdgeDistance" type="number" required>
+  Distance from the anchor bolt centreline to the nearest free edge of the concrete foundation (mm). Edge distance directly affects the concrete breakout and splitting capacities.
+</ParamField>
+
+<Tip>
+  ACI 318 Appendix D and EN 1992-4 both specify a minimum edge distance of **6 × bolt diameter** for cast-in headed anchors and **10 × bolt diameter** for post-installed (epoxy) anchors. Using edge distances below these minimums requires a significant capacity reduction factor and is generally not recommended. Where layout constraints force small edge distances, consider enlarging the foundation pedestal or increasing the number of bolts.
+</Tip>

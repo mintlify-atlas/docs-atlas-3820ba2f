@@ -1,0 +1,62 @@
+---
+title: "Materials Reference"
+description: "Material properties and ASME code tables used in PSI calculations"
+---
+
+PSI supports four structural materials for pressure vessel and support design. The selected material determines the allowable stress values used in code calculations, so choosing the correct material is essential for accurate results.
+
+## Supported Materials
+
+The following materials are available in both the **Geometry & Weight** (vessel material) and **Support Design** (support material) forms:
+
+| Material | Typical Grade | Key Properties | Common Service |
+|---|---|---|---|
+| Carbon steel | SA-516, SA-106 | General purpose, cost-effective, good weldability | Moderate temperature and pressure, non-corrosive fluids |
+| Stainless steel 304 | SA-240 TP304, SA-312 TP304 | Excellent corrosion resistance, austenitic | Food/beverage, chemical processing, water service |
+| Stainless steel 316 | SA-240 TP316, SA-312 TP316 | Enhanced corrosion resistance with molybdenum addition | Marine environments, acid service, chloride-containing media |
+| Alloy steel | SA-387, SA-335 P11/P22 | High strength at elevated temperatures, creep resistance | High-temperature and high-pressure service, power generation |
+
+<Note>
+  The material selected in PSI controls which allowable stress values are applied during code calculations. Always confirm the exact material specification (SA- or SB- designation) with the applicable ASME tables before finalizing a design.
+</Note>
+
+## ASME VIII Division 1 Materials
+
+ASME Boiler and Pressure Vessel Code, Section VIII, Division 1 covers the design of pressure vessels using conservative stress-based rules. Division 1 applies a design factor of 3.5 on ultimate tensile strength, resulting in lower allowable stresses compared to Division 2.
+
+Common material forms covered under Division 1 include:
+
+- **Plate**: SA-516 (carbon steel), SA-240 (stainless steel)
+- **Pipe and tube**: SA-106, SA-312, SA-335
+- **Forgings**: SA-105, SA-182
+- **Fittings and flanges**: SA-234, SA-403
+
+The PSI materials table for Division 1 lists allowable stress values (S) at various temperatures for each listed specification and grade.
+
+<CardGroup cols={2}>
+  <Card
+    title="ASME VIII Div 1 Materials Table"
+    icon="table"
+  >
+    Available in the PSI app at **Tablas → Materiales ASME VIII DIV 1**. Lists allowable stress values (S) at temperature for each material specification and grade.
+  </Card>
+  <Card
+    title="ASME VIII Div 2 Materials Table"
+    icon="table"
+  >
+    Available in the PSI app at **Tablas → Materiales ASME VIII DIV 2**. Lists Division 2 allowable stress values with higher permitted stresses for qualifying designs.
+  </Card>
+</CardGroup>
+
+## ASME VIII Division 2 Materials
+
+ASME Section VIII, Division 2 provides alternative rules with more rigorous analysis requirements. Division 2 uses a design factor of 2.4 on ultimate tensile strength (lower than Division 1), which permits **higher allowable stresses** for the same material. This enables thinner walls and lighter vessels when the additional analysis burden is acceptable.
+
+Key differences from Division 1:
+
+- Higher allowable stress values at equivalent temperatures
+- More detailed fatigue analysis required for cyclic service
+- Stricter material testing and certification requirements
+- Requires documented Design Specification and Design Report
+
+The PSI materials table for Division 2 lists the corresponding allowable stress values per the Division 2 rules. Use these values only when the vessel is being designed to ASME VIII Division 2.

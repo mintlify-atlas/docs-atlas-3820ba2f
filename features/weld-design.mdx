@@ -1,0 +1,63 @@
+---
+title: "Weld Design"
+description: "Design and analyze weld configurations for pressure vessel structural connections"
+---
+
+The Weld Design module covers the calculation and verification of welds used to connect pressure vessel supports to the vessel shell and to the supporting foundation or structure. Validated weld calculations are a mandatory step in any pressure vessel support design that involves attached hardware such as lugs, skirt base rings, leg attachment plates, or saddle wear plates.
+
+PSI provides two dedicated pages for weld work:
+
+- **Weld Design** — `/soldadura-diseno` — configure and size weld joints
+- **Weld Analysis** — `/soldadura-analisis` — review weld calculation results and analytics
+
+<Info>
+  Both weld pages are part of the upcoming structural elements expansion. They currently display a **Próximamente** (Coming Soon) screen with a countdown timer. Subscribe with your email on either page to be notified when they launch.
+</Info>
+
+## Why Weld Calculations Matter
+
+In pressure vessel support engineering, the weld connecting a support to the vessel shell is often the most critically loaded joint in the assembly. The attachment must transfer all dead load, operating weight, wind shear, and seismic base shear through a relatively small area of deposited weld metal. Errors in weld sizing can result in attachment failure without warning.
+
+PSI integrates weld design directly into the support design workflow so that the forces computed for the support geometry automatically flow into the weld sizing calculations, eliminating the need to manually transfer loads between separate tools.
+
+## Weld Design Page (`/soldadura-diseno`)
+
+When complete, the Weld Design page will allow engineers to:
+
+- Select the weld joint type (fillet, groove, partial penetration) appropriate for the attachment geometry
+- Input the weld throat size and length
+- Define the electrode classification and allowable stress per the selected design code (ASME or COVENIN)
+- Verify that the applied load on the weld does not exceed the allowable capacity
+- Review the unity check ratio and identify the governing load combination
+
+## Weld Analysis Page (`/soldadura-analisis`)
+
+The Weld Analysis page will present the results of weld calculations in a dashboard format consistent with the [Support Analysis](/features/support-analysis) page, including:
+
+- Metric cards showing weld load, capacity, and utilization ratio
+- Charts visualizing load distribution across weld segments
+- A results table listing each weld joint with pass/fail status
+
+## Integration with the Support Design Workflow
+
+Weld design sits at the end of the support design chain:
+
+1. **Vessel definition** — geometry and operating conditions set the total loads ([Pressure Vessels](/features/pressure-vessels))
+2. **Support design** — support type and dimensions distribute loads to attachment points ([Support Design](/features/support-design))
+3. **Weld design** — attachment point forces are used to size and verify the welds (this page)
+
+<Tip>
+  Complete the support design on `/soporte-diseno` before working in the weld modules. The support calculations determine the forces that must be transferred through each weld, and those values will pre-populate the weld design inputs once the integration is live.
+</Tip>
+
+## Supported Attachment Types
+
+The weld design module is planned to cover the following attachment configurations:
+
+| Attachment | Typical Support Type | Weld Location |
+|---|---|---|
+| Saddle wear plate | Horizontal saddle | Longitudinal and circumferential fillet welds on shell |
+| Skirt base ring | Vertical skirt | Continuous fillet weld at skirt-to-head junction |
+| Leg attachment plate | Leg supports | Fillet welds connecting leg base plate to shell nozzle pad |
+| Lug plate | Lug supports | Fillet welds on lug-to-shell interface |
+| Ring stiffener | Ring support | Continuous fillet weld connecting ring to shell |

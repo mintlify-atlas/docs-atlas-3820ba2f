@@ -1,0 +1,100 @@
+---
+title: "Engineering Reports"
+description: "Generate, customize, and print design summary reports from PSI"
+---
+
+PSI generates a **Design Summary Report** from the Support Design page. The report consolidates all key inputs and results — project information, geometry, loads, and support configuration — into a single printable document that can also be saved as a PDF.
+
+## Generating a Report
+
+<Steps>
+  <Step title="Complete all fields in Support Design">
+    Fill in all required inputs: project information, geometry and weight, wind and seismic parameters, and support configuration. The Summary Report section at the bottom of the page reflects the current state of the form in real time.
+  </Step>
+  <Step title="Scroll to the Summary Report section">
+    Navigate to the bottom of the Support Design page to find the Summary Report card. Review all displayed values to confirm they are correct before printing.
+  </Step>
+  <Step title="Click Imprimir / Exportar">
+    Click the **Imprimir / Exportar** button located at the top-right of the Summary Report section. PSI opens a new browser window containing a styled copy of the report and immediately triggers the browser's print dialog.
+  </Step>
+  <Step title="Print or save as PDF">
+    In the browser print dialog, choose a physical printer to print the report, or select **Save as PDF** (or **Microsoft Print to PDF**) to export a PDF file.
+  </Step>
+</Steps>
+
+## Report Sections
+
+The generated report contains four sections, each corresponding to a card in the Summary Report:
+
+### 1. General Information — Resumen
+
+This section captures the project identity and design basis:
+
+| Field | Description |
+|---|---|
+| Proyecto | Project name |
+| Fluido de trabajo | Working fluid or service description |
+| Código | Design code (e.g., ASME VIII Div 1, COVENIN) |
+| Presión de diseño | Design pressure with unit (MPa or psi) |
+| Temperatura de diseño | Design temperature with unit (°C or °F) |
+
+### 2. Geometry & Weight
+
+Physical dimensions and material of the pressure vessel:
+
+| Field | Description |
+|---|---|
+| Outer Diameter | Vessel outer diameter |
+| Length / Height | Vessel length (horizontal) or height (vertical column) |
+| Material | Selected vessel material |
+| Wall thickness | Nominal shell wall thickness |
+
+### 3. Wind & Seismic
+
+Environmental load parameters. The seismic subsection format depends on the selected design code:
+
+- **ASME format**: Site class, spectral acceleration parameters Ss and S1
+- **COVENIN format**: City, state, and soil type
+
+Wind is reported as the selected zone identifier and the corresponding wind pressure or speed value.
+
+### 4. Support Configuration
+
+A summary of the support type and key saddle geometry (when applicable):
+
+| Field | Description |
+|---|---|
+| Support type | Type of support (e.g., saddle, leg, skirt, lug) |
+| Saddle height | Height from base to vessel centerline |
+| Saddle location | Longitudinal position of the saddle along the vessel |
+
+## How Print / Export Works
+
+When you click **Imprimir / Exportar**, PSI executes the following steps programmatically:
+
+1. Captures the inner HTML of the Summary Report section.
+2. Opens a new browser window (`window.open`) sized at 900 × 700 px.
+3. Copies all `<link rel="stylesheet">` and `<style>` elements from the main document into the new window so the report inherits the full application stylesheet.
+4. Appends a `@media print` rule that hides elements marked `.no-print` (such as navigation, sidebars, and the print button itself) and defines page breaks.
+5. Writes the complete HTML to the new window and calls `window.print()` after a 250 ms delay to ensure stylesheets are loaded.
+
+Because the new window includes all application styles, the printed report matches the visual appearance of the on-screen summary.
+
+<Note>
+  The **Imprimir / Exportar** button itself carries the `.no-print` class, so it is automatically hidden in the printed output.
+</Note>
+
+## Tips for Best PDF Output
+
+<Tip>
+  For the highest-quality PDF export, use **Google Chrome** or **Microsoft Edge**.
+
+  In the print dialog, apply these settings:
+  - **Margins**: None or Minimum
+  - **Background graphics**: Enabled (to preserve card backgrounds and color coding)
+  - **Paper size**: A4 or Letter, depending on your region
+</Tip>
+
+<Warning>
+  Some browsers (especially Firefox and Safari) may render fonts or card borders differently in the print preview. If the output does not look as expected, switch to Chrome or Edge before exporting.
+</Warning>
