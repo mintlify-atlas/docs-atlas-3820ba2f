@@ -1,0 +1,82 @@
+{
+  "projectType": "saas",
+  "projectName": "PSI — Pressure vessel Support Indicator",
+  "projectDescription": "A React/TypeScript web application for structural and pressure vessel engineering calculations, including support design, seismic/wind load analysis, weld design, and printable engineering reports.",
+  "theme": "linden",
+  "primaryColor": "#0a1618",
+  "lightColor": "#cfebed",
+  "darkColor": "#70969a",
+  "navigation": {
+    "tabs": [
+      {
+        "tab": "Documentation",
+        "groups": [
+          {
+            "group": "Get Started",
+            "pages": ["introduction", "quickstart"]
+          },
+          {
+            "group": "Core Features",
+            "pages": [
+              "features/pressure-vessels",
+              "features/support-design",
+              "features/support-analysis",
+              "features/structural-elements",
+              "features/weld-design"
+            ]
+          },
+          {
+            "group": "Loads & Codes",
+            "pages": [
+              "loads/wind-loads",
+              "loads/seismic-loads",
+              "loads/design-codes"
+            ]
+          },
+          {
+            "group": "Support Types",
+            "pages": [
+              "supports/saddle",
+              "supports/skirt",
+              "supports/legs",
+              "supports/lug",
+              "supports/ring-support",
+              "supports/anchoring"
+            ]
+          },
+          {
+            "group": "Reference",
+            "pages": [
+              "reference/materials",
+              "reference/unit-systems",
+              "reference/reports"
+            ]
+          }
+        ]
+      }
+    ]
+  },
+  "keyFeatures": [
+    "Pressure vessel support design and analysis (saddle, skirt, legs, lug, ring supports)",
+    "Seismic load analysis with ASME/ASCE and COVENIN code support",
+    "Wind load analysis with configurable exposure categories",
+    "Structural beam and weld design/analysis modules",
+    "SI and US unit system support",
+    "Printable/exportable engineering summary reports",
+    "ASME VIII Div 1 & Div 2 material reference tables",
+    "Dark mode and collapsible sidebar interface"
+  ],
+  "publicApiSurface": [
+    "GET /inicio — Home dashboard",
+    "GET /soporte-diseno — Pressure vessel support design form",
+    "GET /soporte-analisis — Pressure vessel support analysis dashboard",
+    "GET /recipientes-analisis — Vessel analysis (coming soon)",
+    "GET /vigas-analisis — Structural beam analysis (coming soon)",
+    "GET /soldadura-analisis — Weld analysis",
+    "GET /soldadura-diseno — Weld design",
+    "GET /basic-tables — ASME VIII Div 1 materials table",
+    "GET /data-tables — ASME VIII Div 2 materials table",
+    "GET /login — Authentication",
+    "GET /registro — User registration"
+  ]
+}
